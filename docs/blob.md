@@ -1,3 +1,8 @@
+# Blob Object
+
+## Blob Structure
+blob size\0content
+
 ## Read Blob Object Algorithm:
 - read file contents
 - format the file in this way: blob <size>\0content

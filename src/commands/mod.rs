@@ -3,10 +3,11 @@ pub mod hash_object;
 pub mod init;
 pub mod ls_tree;
 pub mod write_tree;
-
 use std::path::PathBuf;
-
 use clap::{Parser, Subcommand};
+use cat_file::CatFile;
+use hash_object::HashObject;
+use ls_tree::LsTree;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -43,19 +44,19 @@ impl Command {
                 init::create_git_dir()?;
             }
             Command::CatFile {pretty_print,hash} => {
-                cat_file::run(&hash)?;
+                CatFile::new().with_pretty_print(pretty_print).run(&hash)?;
             }
             Command::HashObject { write, file } => {
-                hash_object::run(&file)?;
+                HashObject::new().with_write(write).run(&file)?;
             }
             Command::LsTree {
                 name_only,
                 hash,
             } => {
-                ls_tree::run(&hash, name_only)?;
+                LsTree::new().with_name_only(name_only).run(&hash)?;
             }
             Command::WriteTree => {
-
+                write_tree::run()?;
             }
         };
         Ok(())

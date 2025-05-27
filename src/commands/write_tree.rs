@@ -1,10 +1,14 @@
-use std:: path::PathBuf;
+use std::{env,  path::PathBuf};
+use anyhow::Context;
+
 use crate::object;
 
 pub fn run() -> anyhow::Result<()> {
     
-    let path = PathBuf::from(".");
-    object::write_tree(&path)?;
+    let path = PathBuf::from(env::current_dir().context("getting the curr dir from env")?);
+    let hash = object::write_tree(&path)?;
+
+    println!("{}", hex::encode(hash));
 
     Ok(())
 }

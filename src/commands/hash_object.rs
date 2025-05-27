@@ -19,7 +19,7 @@ impl HashObject {
     pub fn run(self, file: &PathBuf) -> anyhow::Result<()> {
 
         let hash = object::write_blob(file)?;
-        println!("{hash}");
+        println!("{}", hex::encode(hash));
 
         Ok(())
     }

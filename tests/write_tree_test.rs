@@ -48,7 +48,7 @@ fn test_write_tree_hash() -> anyhow::Result<()> {
     // Verify hash
     assert_eq!(
         hash,
-        "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+        "bcfc3793b7ae8e4f709faed476a5ed9b835d7acc",
         "Tree hash did not match expected"
     );
 

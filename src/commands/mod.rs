@@ -3,6 +3,7 @@ pub mod hash_object;
 pub mod init;
 pub mod ls_tree;
 pub mod write_tree;
+pub mod commit_tree;
 use std::path::PathBuf;
 use clap::{Parser, Subcommand};
 use cat_file::CatFile;
@@ -34,7 +35,14 @@ pub enum Command {
         name_only: bool,
         hash: String,
     },
-    WriteTree 
+    WriteTree,
+    CommitTree {
+        tree_hash: String,
+        #[clap(short = 'p')]
+        parent_hash: Option<String>,
+        #[clap(short = 'm')]
+        message: String,
+    }
 }
 
 impl Command {
@@ -57,6 +65,9 @@ impl Command {
             }
             Command::WriteTree => {
                 write_tree::run()?;
+            },
+            Command::CommitTree { message, tree_hash, parent_hash } => {
+                commit_tree::run(&message, &tree_hash, parent_hash.as_deref())?;
             }
         };
         Ok(())

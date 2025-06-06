@@ -6,7 +6,7 @@ use crate::object;
 pub fn run() -> anyhow::Result<()> {
     
     let path = PathBuf::from(env::current_dir().context("getting the curr dir from env")?);
-    let hash = object::write_tree(&path)?;
+    let hash = object::create_tree(&path)?;
 
     println!("{}", hex::encode(hash));
 
